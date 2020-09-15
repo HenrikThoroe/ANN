@@ -8,9 +8,9 @@ export default class Neuron {
 
     private readonly size: Number
 
-    private bias: number
+    public bias: number
 
-    private weights: number[]
+    public weights: number[]
 
     constructor(size: number) {
         this.size = size
