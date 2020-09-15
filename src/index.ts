@@ -16,5 +16,5 @@ for (let i = 0; i < 1000000; ++i) {
 }
 
 data.forEach(d => {
-    console.log(neuron.feedforward(d[0]))
+    console.log(neuron.predict(d[0]))
 })

@@ -22,13 +22,13 @@ export default class Neuron {
         }
     }
 
-    feedforward(input: number[]): number {
+    predict(input: number[]): number {
         const weighted = this.weightInput(input)
         return sigmoid(weighted)
     }
 
     train(input: number[], expected: number) {
-        const out = this.feedforward(input)
+        const out = this.predict(input)
         const error = out - expected
         const backpropagatedOutput = sigmoidDerivate(this.weightInput(input))
 
