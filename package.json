@@ -16,5 +16,9 @@
     "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@types/mathjs": "^6.0.5",
+    "mathjs": "^7.2.0"
   }
 }

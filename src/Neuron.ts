@@ -1,3 +1,4 @@
+import { e } from "mathjs"
 import dot from "./shared/dot"
 import sigmoid from "./shared/sigmoid"
 import sigmoidDerivate from "./shared/sigmoidDerivate"
@@ -12,19 +13,23 @@ export default class Neuron {
 
     public weights: number[]
 
-    constructor(size: number) {
+    constructor(size: number, weights?: number[]) {
         this.size = size
         this.bias = 1
         this.weights = new Array(size)
 
-        for (let i = 0; i < size; ++i) {
-            this.weights[i] = Math.random()
+        if (weights) {
+            this.bias = weights[0]
+            this.weights = weights.slice(1)
+        } else {
+            for (let i = 0; i < size; ++i) {
+                this.weights[i] = Math.random()
+            }
         }
     }
 
     predict(input: number[]): number {
-        const weighted = this.weightInput(input)
-        return sigmoid(weighted)
+        return this.activation(this.func(input))
     }
 
     train(input: number[], expected: number) {
@@ -41,6 +46,14 @@ export default class Neuron {
                 this.weights[i] += delta
             }
         }
+    }
+
+    func(x: number[]): number {
+        return this.bias + dot(x, this.weights)
+    } 
+
+    activation(x: number): number {
+        return sigmoid(x)
     }
 
     private weightInput(input: number[]): number {
