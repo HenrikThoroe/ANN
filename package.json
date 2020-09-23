@@ -1,7 +1,7 @@
 {
   "name": "ann",
   "version": "1.0.0",
-  "description": "A artificial neural network for educational puposes",
+  "description": "An artificial neural network for educational purposes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,9 +12,9 @@
   "license": "MIT",
   "devDependencies": {
     "ts-loader": "^8.0.3",
-    "tsc": "^1.20150623.0",
     "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
-  }
+  },
+  "dependencies": {}
 }
