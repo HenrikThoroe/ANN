@@ -11,10 +11,13 @@
   "author": "Henrik Thoroe",
   "license": "MIT",
   "devDependencies": {
+    "@types/seedrandom": "^2.4.28",
     "ts-loader": "^8.0.3",
     "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
-  "dependencies": {}
+  "dependencies": {
+    "seedrandom": "^3.0.5"
+  }
 }
