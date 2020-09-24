@@ -1,4 +1,4 @@
-import XorNet from "./XorNet";
+import XorNet from "./nets/XorNet";
 
 const xor =  new XorNet()
 

@@ -1,5 +1,5 @@
-import sigmoid from "./shared/sigmoid"
-import sigmoidDerivate from "./shared/sigmoidDerivate"
+import sigmoid from "../shared/sigmoid"
+import sigmoidDerivate from "../shared/sigmoidDerivate"
 
 export default class XorNet {
     /** The number of neurons in each layer. Input layer exclusive. */
