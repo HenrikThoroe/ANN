@@ -27,6 +27,8 @@ export default class Network {
 
     private weights: number[][][]
 
+    private learningRate: number = 0.05
+
     // API
 
     public readonly inputNeurons: number
@@ -36,8 +38,6 @@ export default class Network {
     public readonly outputNeurons: number
 
     public readonly activationName: ActivationFunctionLabel
-
-    public readonly learningRate: number = 0.05
 
     constructor(constraints: number[], activation: ActivationFunctionLabel) {
         const rng = seedrandom("0.499214413433662")
