@@ -17,6 +17,28 @@ export interface TrainingSet {
     target: number[]
 }
 
+export interface NetworkState {
+    weights: number[][][]
+    biases: number[][]
+    error?: number[]
+}
+
+export interface NetworkInfo {
+    dimensions: number[]
+    activationName: ActivationFunctionLabel
+    name: string
+}
+
+export interface NetworkJSON {
+    training: NetworkState[]
+    meta: NetworkInfo
+}
+
+export interface TrainingBundle { 
+    network: Network, 
+    training: NetworkState[] 
+}
+
 export default class Network {
 
     // Internal
@@ -29,7 +51,11 @@ export default class Network {
 
     private learningRate: number = 0.05
 
+    private lastError?: number[]
+
     // API
+
+    public readonly name: string
 
     public readonly inputNeurons: number
 
@@ -39,17 +65,35 @@ export default class Network {
 
     public readonly activationName: ActivationFunctionLabel
 
-    constructor(constraints: number[], activation: ActivationFunctionLabel) {
+    constructor(constraints: number[], activation: ActivationFunctionLabel, name: string) {
         const rng = seedrandom("0.499214413433662")
 
         this.biases = map(constraints.length - 1, l => map(constraints[l + 1], () => rng()))
         this.weights = map(constraints.length - 1, l => map(constraints[l + 1], n => map(constraints[l], () => rng())))
+
+        this.name = name
 
         this.inputNeurons = constraints[0]
         this.outputNeurons = constraints[constraints.length - 1]
         this.hiddenLayers = constraints.length - 2
         this.activationName = activation
         this.dimension = [...constraints]
+    }
+
+    getState(): NetworkState {
+        return {
+            weights: this.weights,
+            biases: this.biases,
+            error: this.lastError
+        }
+    }
+
+    getInfo(): NetworkInfo {
+        return {
+            activationName: this.activationName,
+            dimensions: this.dimension,
+            name: this.name
+        }
     }
 
     log() {
@@ -69,11 +113,12 @@ export default class Network {
         return this.feedforward(input)[this.dimension.length - 1]
     }
 
-    train(epochs: number, trainingSets: TrainingSet[]) {
+    train(epochs: number, trainingSets: TrainingSet[], callback: (epoch: number) => void = () => {}) {
         for (const _e of range(epochs)) {
             for (const set of trainingSets) {
                 this.backpropagate(set.input, set.target)
             }
+            callback(_e)
         }
     }
 
@@ -142,6 +187,7 @@ export default class Network {
 
         biasDeltas.reverse()
         deltas.reverse()
+        this.lastError = output[output.length - 1].map((o, i) => Math.pow(o - target[i], 2))
 
         for (const layer of range(deltas.length)) {
             for (const neuron of range(deltas[layer].length)) {
