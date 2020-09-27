@@ -18,6 +18,10 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "@types/express": "^4.17.8",
+    "@types/mongodb": "^3.5.27",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2",
     "seedrandom": "^3.0.5"
   }
 }
