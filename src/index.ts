@@ -1,6 +1,4 @@
-import seedrandom from "seedrandom";
 import compressNetwork from "./app/compressNetwork";
-import storeNetwork from "./app/storeNetwork";
 import Network, { NetworkState, TrainingBundle, TrainingSet } from "./nets/Network";
 import XorNet from "./nets/XorNet";
 import range from "./shared/range";
