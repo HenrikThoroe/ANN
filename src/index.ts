@@ -4,43 +4,45 @@ import XorNet from "./nets/XorNet";
 import range from "./shared/range";
 import express from "express"
 
-const app = express()
-const port = 3210
-const trainedNetworks = [
-    runNetwork()
-]
+// const app = express()
+// const port = 3210
+// const trainedNetworks = [
+//     runNetwork()
+// ]
 
-app.get("/", (req, res) => {
-    res.send("Hello, world")
-})
+// app.get("/", (req, res) => {
+//     res.send("Hello, world")
+// })
 
-app.get("/nets", async (req, res) => {
-    res.json({ ids: range(trainedNetworks.length) })
-})
+// app.get("/nets", async (req, res) => {
+//     res.json({ ids: range(trainedNetworks.length) })
+// })
 
-app.get("/net", async (req, res) => {
-    const id = parseInt(req.query.id as string)
+// app.get("/net", async (req, res) => {
+//     const id = parseInt(req.query.id as string)
 
-    if (id !== undefined && typeof id === "number" && trainedNetworks.length > id) {
-        res.json(compressNetwork(trainedNetworks[id].network, trainedNetworks[id].training)) 
-    } else {
-        res.statusCode = 404
-        res.send("Not Found")
-    }
-})
+//     if (id !== undefined && typeof id === "number" && trainedNetworks.length > id) {
+//         res.json(compressNetwork(trainedNetworks[id].network, trainedNetworks[id].training)) 
+//     } else {
+//         res.statusCode = 404
+//         res.send("Not Found")
+//     }
+// })
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`)
-})
+// app.listen(port, () => {
+//     console.log(`Server listening on port ${port}`)
+// })
+
+runXor()
 
 function runXor() {
     const xor =  new XorNet()
 
-    console.log(`Error before training: ${xor.getError()}`)
+    // console.log(`Error before training: ${xor.getError()}`)
 
-    xor.train()
+    xor.train(20000)
 
-    console.log(`Error after training: ${xor.getError()}`)
+    // console.log(`Error after training: ${xor.getError()}`)
     console.log(`Prediction for [0, 1]: ${xor.predict(0, 1)}`)
     console.log(`Prediction for [1, 1]: ${xor.predict(1, 1)}`)
     console.log(`Prediction for [1, 0]: ${xor.predict(1, 0)}`)

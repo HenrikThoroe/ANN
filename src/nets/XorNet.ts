@@ -39,6 +39,12 @@ export default class XorNet {
             this.data.forEach(d => {
                 this.error += this.backpropagate(d[0], [d[1]])
             })
+
+            if (i === 1 || i === Math.floor(epochs / 3) || i === 2 * Math.floor(epochs / 3) || i === epochs - 1) {
+                console.log(this.weights.map(w => w.map(w => w.map(a => (a + 15) / (15 + 17) * 100))))
+                console.log(this.biases.map(w => w.map(a => (a + 15) / (15 + 17) * 100)))
+                console.log(this.error / (i * this.data.length))
+            }
         }
     }
 
